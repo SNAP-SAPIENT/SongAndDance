@@ -11,7 +11,7 @@ beacon2 = '18637'
 beacon3 = '18627'
 beacon4 = '18620'
 logging.basicConfig(filename = '/home/pi/logs/song_dance/app.log', level= logging.DEBUG)
-
+print 'Starting up main.py..'
 logging.info('Starting app..')
 try:
         dev_id = 0
@@ -28,14 +28,17 @@ try:
         beaconScaner.hci_le_set_scan_parameters(sock)
         beaconScaner.hci_enable_le_scan(sock)
 
-
+        print "starting loop.."
+        logging.info('loop starting.....')
 
         avgCounter = 0
         totalRssi = 0
         while True:
+                #print "in loop.."
+                #logging.info('loping.....')
                 valueMap = beaconScaner.parse_events(sock, 10)
-                print valueMap
-                logging.info("valueMap; %s" %valueMap)
+                #print valueMap
+                #logging.info("valueMap: %s" %valueMap)
                 b1 = 0
                 b2 = 0
                 b3 = 0
