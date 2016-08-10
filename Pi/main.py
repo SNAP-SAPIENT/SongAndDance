@@ -2,6 +2,7 @@ import beaconScaner
 import uart
 import sys
 import time
+import logging
 
 import bluetooth._bluetooth as bluez
 
@@ -9,27 +10,19 @@ beacon1 = '18660'
 beacon2 = '18637'
 beacon3 = '18627'
 beacon4 = '18620'
+logging.basicConfig(filename = '/home/pi/logs/song_dance/app.log', level= logging.DEBUG)
 
-def getBeaconValues(valueMap, rssi):    
-        #if rssi:
-        #print "rssi: %d" %rssi
-        #print "avgCounter: %d" %avgCounter
-        if(rssi < 0):
-                absRssi = abs(rssi)
-        else:
-                absRssi = rssi
-
-        #print "absRssi: %d" %absRssi
-        totalRssi += absRssi
-        return totalRssi
+logging.info('Starting app..')
 try:
         dev_id = 0
         try:
                 sock = bluez.hci_open_dev(dev_id)
                 print "Beacon Scaner started..."
+                logging.info('Beacon Scaner started.....')
 
         except:
                 print "Error scanning for beacons!!!"
+                logging.info('Error scanning for beacons!!!')
                 sys.exit(1)
 
         beaconScaner.hci_le_set_scan_parameters(sock)
@@ -42,6 +35,7 @@ try:
         while True:
                 valueMap = beaconScaner.parse_events(sock, 10)
                 print valueMap
+                logging.info("valueMap; %s" %valueMap)
                 b1 = 0
                 b2 = 0
                 b3 = 0
@@ -78,5 +72,7 @@ try:
 
 except KeyboardInterrupt:
     print 'closing due to Keyboard Interrupt'
+    logging.info('closing due to Keyboard Interrupt..')
 
 uart.closeport()
+logging.info('stopping app..')
