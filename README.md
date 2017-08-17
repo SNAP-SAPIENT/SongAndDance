@@ -1,6 +1,6 @@
 # SongAndDance
 
-The Python scripts cannot run without first installing a Bluetooth package on the Pi. You can do that by executed the following command in the terminal (I already took care of this step) “sudo apt-get install python-bluez”
+The Python scripts cannot run without first installing a Bluetooth package on the Pi. You can do that by executed the following command in the terminal “sudo apt-get install python-bluez”
 
 set up Raspberry Pi to start Python script on startup
 
